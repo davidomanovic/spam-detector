@@ -1,10 +1,5 @@
 # Spam Detection in Java
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="https://github.com/user-attachments/assets/88f188f5-9de0-464f-849b-552767b2580c" alt="Image 1" width="500"/>
-    <img src="https://github.com/user-attachments/assets/5040a886-cd89-4d56-969c-2cabf7f2f3a4" alt="Image 2" width="500"/>
-</div>
-
 ## Overview
 Who likes spam? NO ONE! This project implements a machine learning-based Spam Detection system in Java. The application classifies emails as either spam or ham (non-spam) using supervised learning techniques. It demonstrates data preprocessing, feature extraction, model training, and evaluation.
 
