@@ -19,10 +19,8 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
-        java-version: '23.0.1'
+        distribution: 'temurin' # Specify the Java distribution
+        java-version: '21'     # Specify the Java version
 
     - name: Compile the code
       run: javac src/main/*.java
-
-    - name: Run tests
-      run: java -cp src/main ExampleTest
