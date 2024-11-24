@@ -94,42 +94,28 @@ public class ModelTrainer {
     }
 
     // Read dataset from CSV file
-    private static List<String[]> readDataset(String filePath) throws IOException {
+    public static List<String[]> readDataset(String filePath) throws IOException {
         List<String[]> dataset = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line = reader.readLine(); // Skip header
+    
         while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",", 2); // Split into label and email content
-            if (parts.length == 2) {
-                String label = parts[0].trim().equals("1") ? "spam" : "ham"; // Map 1 -> spam, 0 -> ham
-                String emailRaw = parts[1].trim();
-                String emailBody = extractEmailBody(emailRaw);
-                dataset.add(new String[] { label, emailBody });
+            // Extract label as the last field, and everything before as the text
+            int lastCommaIndex = line.lastIndexOf(","); // Find the last comma
+            if (lastCommaIndex != -1) {
+                String text = line.substring(0, lastCommaIndex).trim(); // Everything before the last comma
+                String label = line.substring(lastCommaIndex + 1).trim(); // The part after the last comma
+                label = label.equals("1") ? "spam" : "ham"; // Map 1 -> spam, 0 -> ham
+                dataset.add(new String[] { label, text });
             }
         }
+    
         reader.close();
         return dataset;
     }
 
-    // Helper method to extract the email body
-    private static String extractEmailBody(String emailRaw) {
-        String[] lines = emailRaw.split("\\n"); // Split email into lines
-        StringBuilder body = new StringBuilder();
-
-        boolean isBody = false;
-        for (String line : lines) {
-            if (!isBody) {
-                if (line.trim().isEmpty()) isBody = true; // Body starts after blank line
-            } else {
-                body.append(line).append(" ");
-            }
-        }
-
-        return body.toString().replaceAll("<[^>]*>", "").trim(); // Remove HTML tags
-    }
-
     // Stratified sampling for balanced dataset split
-    private static void stratifiedSplit(List<int[]> featureVectors, List<String> labels,
+    public static void stratifiedSplit(List<int[]> featureVectors, List<String> labels,
                                         List<int[]> trainFeatures, List<String> trainLabels,
                                         List<int[]> testFeatures, List<String> testLabels, double trainRatio) {
         Map<String, List<Integer>> labelIndices = new HashMap<>();
@@ -189,5 +175,13 @@ public class ModelTrainer {
         ModelTrainer trainer = new ModelTrainer();
         trainer.train(trainFeatures, trainLabels);
         trainer.evaluate(testFeatures, testLabels);
+
+        String testLine = "\"From: nigerianprince53@gmail.com, Subject: WINNER WINNER CHICKEN DINNER, Message: Hello you win one million dollars \",1";
+        int lastCommaIndex = testLine.lastIndexOf(",");
+        String text = testLine.substring(0, lastCommaIndex).trim();
+        String label = testLine.substring(lastCommaIndex + 1).trim();
+        
+        System.out.println("Text: " + text);
+        System.out.println("Label: " + (label.equals("1") ? "spam" : "ham"));
     }
 }
