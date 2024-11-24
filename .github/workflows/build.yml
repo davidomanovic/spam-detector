@@ -1,0 +1,28 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '23.0.1'
+
+    - name: Compile the code
+      run: javac src/main/*.java
+
+    - name: Run tests
+      run: java -cp src/main ExampleTest
