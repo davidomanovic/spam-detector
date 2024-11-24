@@ -1,1 +1,6 @@
+Label,EmailText
+spam,"Congratulations! You've won a prize. Click here!"
+ham,"Please find the attached document for your review."
+spam,"Act now! Limited offer only for today."
+ham,"Can we reschedule our meeting?"
 
