@@ -1,4 +1,4 @@
-# Spam Detection with Naive Bayes
+# Spam Detection by Generative Learning 
 
 Who likes spam? No one😡! This project implements a spam detection system using generative learning (Gen AI) by means of the Naïve Bayes algorithm. It preprocesses raw email data, extracts features, and evaluates the model's performance in Java. We also have a simple GUI here just to test if the model works as expected.
 
