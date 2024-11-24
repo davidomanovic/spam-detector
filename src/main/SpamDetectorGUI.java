@@ -1,4 +1,7 @@
+package main;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,38 +54,90 @@ public class SpamDetectorGUI {
         // Set up the main frame
         JFrame frame = new JFrame("Spam Detector");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 350);
+        frame.setSize(600, 400);
         frame.setLayout(new BorderLayout());
+
+        // Apply dark mode colors
+        Color darkBackground = new Color(43, 43, 43);
+        Color lightText = new Color(187, 187, 187);
+        Color buttonColor = new Color(60, 63, 65);
+
+        frame.getContentPane().setBackground(darkBackground);
+
+        // Title Label
+        JLabel titleLabel = new JLabel("Spam Detector", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(lightText);
+        titleLabel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         // Input panel
         JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(2, 1));
+        inputPanel.setLayout(new BorderLayout());
+        inputPanel.setBackground(darkBackground);
+        inputPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JLabel inputLabel = new JLabel("Enter email content:");
-        JTextArea inputArea = new JTextArea(5, 40);
-        inputPanel.add(inputLabel);
-        inputPanel.add(new JScrollPane(inputArea));
+        JLabel inputLabel = new JLabel("Enter Email Content:");
+        inputLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputLabel.setForeground(lightText);
 
-        // Button panel
-        JPanel buttonPanel = new JPanel();
-        JButton classifyButton = new JButton("Classify");
-        JButton clearButton = new JButton("Clear");
-        buttonPanel.add(classifyButton);
-        buttonPanel.add(clearButton);
+        JTextArea inputArea = new JTextArea(8, 40);
+        inputArea.setLineWrap(true);
+        inputArea.setWrapStyleWord(true);
+        inputArea.setBackground(buttonColor);
+        inputArea.setForeground(lightText);
+        inputArea.setCaretColor(lightText);
+        JScrollPane inputScrollPane = new JScrollPane(inputArea);
+        inputScrollPane.setBorder(BorderFactory.createLineBorder(buttonColor));
+
+        inputPanel.add(inputLabel, BorderLayout.NORTH);
+        inputPanel.add(inputScrollPane, BorderLayout.CENTER);
 
         // Output panel
         JPanel outputPanel = new JPanel();
-        outputPanel.setLayout(new GridLayout(2, 1));
-        JLabel resultLabel = new JLabel("Prediction: ");
-        JTextField resultField = new JTextField(30);
-        resultField.setEditable(false);
-        outputPanel.add(resultLabel);
-        outputPanel.add(resultField);
+        outputPanel.setLayout(new BorderLayout());
+        outputPanel.setBackground(darkBackground);
+        outputPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Add panels to the frame
-        frame.add(inputPanel, BorderLayout.NORTH);
-        frame.add(buttonPanel, BorderLayout.CENTER);
-        frame.add(outputPanel, BorderLayout.SOUTH);
+        JLabel resultLabel = new JLabel("Prediction:");
+        resultLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        resultLabel.setForeground(lightText);
+
+        JTextField resultField = new JTextField(30);
+        resultField.setFont(new Font("Arial", Font.PLAIN, 16));
+        resultField.setEditable(false);
+        resultField.setHorizontalAlignment(JTextField.CENTER);
+        resultField.setBackground(buttonColor);
+        resultField.setForeground(lightText);
+        resultField.setCaretColor(lightText);
+        resultField.setBorder(BorderFactory.createLineBorder(buttonColor));
+
+        outputPanel.add(resultLabel, BorderLayout.NORTH);
+        outputPanel.add(resultField, BorderLayout.CENTER);
+
+        // Button panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setBackground(darkBackground);
+
+        JButton classifyButton = new JButton("Classify");
+        JButton clearButton = new JButton("Clear");
+
+        classifyButton.setBackground(buttonColor);
+        classifyButton.setForeground(lightText);
+        classifyButton.setFont(new Font("Arial", Font.BOLD, 14));
+
+        clearButton.setBackground(buttonColor);
+        clearButton.setForeground(lightText);
+        clearButton.setFont(new Font("Arial", Font.BOLD, 14));
+
+        buttonPanel.add(classifyButton);
+        buttonPanel.add(clearButton);
+
+        // Add components to the frame
+        frame.add(titleLabel, BorderLayout.NORTH);
+        frame.add(inputPanel, BorderLayout.CENTER);
+        frame.add(outputPanel, BorderLayout.EAST);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Add action listener for the classify button
         classifyButton.addActionListener(new ActionListener() {
