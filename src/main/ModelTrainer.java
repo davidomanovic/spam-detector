@@ -178,7 +178,7 @@ public class ModelTrainer {
         trainer.train(trainFeatures, trainLabels);
         trainer.evaluate(testFeatures, testLabels);
 
-        String testLine = "\"From: nigerianprince53@gmail.com, Subject: WINNER WINNER CHICKEN DINNER, Message: Hello you win one million dollars \",1";
+        String testLine = "\"From: freemoney@gmail.com, Subject: WINNER WINNER CHICKEN DINNER, Message: Hello you win one million dollars \",1";
         int lastCommaIndex = testLine.lastIndexOf(",");
         String text = testLine.substring(0, lastCommaIndex).trim();
         String label = testLine.substring(lastCommaIndex + 1).trim();
